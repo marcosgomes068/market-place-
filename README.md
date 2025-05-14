@@ -80,6 +80,3 @@ marketplace/
 - `GET /api/orders/myorders` - Listar pedidos do usuário
 - `GET /api/orders/:id` - Obter detalhes de um pedido
 
-## Licença
-
-Este projeto está licenciado sob a licença MIT.
