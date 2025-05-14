@@ -1,0 +1,49 @@
+# Dependências
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Arquivos de build
+/dist
+/build
+
+# Arquivos de banco de dados SQLite
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretório de cobertura de teste
+coverage/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Uploads de usuário (opcional - você pode querer manter isso para exemplos)
+# /public/images/products/*
+# !public/images/products/.gitkeep
+
+# Arquivos temporários
+tmp/
+temp/
