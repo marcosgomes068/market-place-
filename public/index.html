@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketPlace - Sua Loja Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="/">MarketPlace</a></h1>
+            </div>
+            <div class="search-bar">
+                <form id="search-form">
+                    <input type="text" id="search-input" placeholder="O que você está procurando?">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#" id="home-link">Início</a></li>
+                    <li><a href="#" id="categories-link">Categorias</a></li>
+                    <li><a href="#" id="cart-link"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+                    <li class="auth-links">
+                        <a href="#" id="login-link" class="btn btn-outline">Entrar</a>
+                        <a href="#" id="register-link" class="btn btn-primary">Cadastrar</a>
+                    </li>
+                    <li class="user-menu hidden">
+                        <a href="#" id="user-dropdown"><i class="fas fa-user"></i> <span id="user-name">Usuário</span></a>
+                        <div class="dropdown-menu">
+                            <a href="#" id="profile-link">Meu Perfil</a>
+                            <a href="#" id="orders-link">Meus Pedidos</a>
+                            <a href="#" id="wishlist-link">Lista de Desejos</a>
+                            <a href="#" id="logout-link">Sair</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mobile-menu">
+                    <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        <!-- Banner Section -->
+        <section class="banner">
+            <div class="container">
+                <div class="banner-content">
+                    <h2>Bem-vindo ao MarketPlace</h2>
+                    <p>Encontre tudo que você precisa em um só lugar</p>
+                    <a href="#featured-products" class="btn btn-primary">Explorar Produtos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Categorias Populares</h2>
+                    <a href="#" class="view-all">Ver todas</a>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Eletrônicos</h3>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3>Roupas</h3>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Casa e Jardim</h3>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Saúde e Beleza</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section id="featured-products" class="products section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Produtos em Destaque</h2>
+                    <a href="#" class="view-all">Ver todos</a>
+                </div>
+                <div class="products-grid" id="featured-products-grid">
+                    <!-- Products will be added here dynamically -->
+                    <div class="product-card">
+                        <div class="product-badge">Destaque</div>
+                        <div class="product-image">
+                            <img src="/images/placeholder.jpg" alt="Produto">
+                            <div class="product-actions">
+                                <button class="add-to-cart"><i class="fas fa-shopping-cart"></i></button>
+                                <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Smartphone X Pro</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(4.5)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">R$ 2.499,00</span>
+                                <span class="old-price">R$ 2.999,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promotion Section -->
+        <section class="promotion section">
+            <div class="container">
+                <div class="promotion-content">
+                    <h2>Ofertas Especiais</h2>
+                    <p>Aproveite nossos descontos exclusivos</p>
+                    <a href="#" class="btn btn-accent">Ver Ofertas</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Arrivals Section -->
+        <section class="products section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Recém Chegados</h2>
+                    <a href="#" class="view-all">Ver todos</a>
+                </div>
+                <div class="products-grid" id="new-arrivals-grid">
+                    <!-- Products will be added here dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>O que dizem nossos clientes</h2>
+                </div>
+                <div class="testimonials-slider">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>Excelente marketplace! Produtos de qualidade e entrega rápida. Recomendo a todos.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="/images/avatar1.jpg" alt="Cliente">
+                            <div>
+                                <h4>Roberta Silva</h4>
+                                <span class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>Atendimento excepcional e uma variedade incrível de produtos. Certamente voltarei a comprar aqui.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="/images/avatar2.jpg" alt="Cliente">
+                            <div>
+                                <h4>Carlos Mendes</h4>
+                                <span class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                </div>
+                <p class="text-center">Não tem uma conta? <a href="#" id="show-register">Cadastrar-se</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Cadastro</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Senha</label>
+                    <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                </div>
+                <p class="text-center">Já tem uma conta? <a href="#" id="show-login">Entrar</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MarketPlace</h3>
+                    <p>Seu marketplace completo com os melhores produtos do mercado.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Início</a></li>
+                        <li><a href="#">Categorias</a></li>
+                        <li><a href="#">Promoções</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Categorias</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Eletrônicos</a></li>
+                        <li><a href="#">Roupas</a></li>
+                        <li><a href="#">Casa e Jardim</a></li>
+                        <li><a href="#">Saúde e Beleza</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Exemplo, 1234 - Brasil</li>
+                        <li><i class="fas fa-phone"></i> +55 (11) 98765-4321</li>
+                        <li><i class="fas fa-envelope"></i> contato@marketplace.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MarketPlace. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/products.js"></script>
+    <script src="/js/cart.js"></script>
+</body>
+</html>

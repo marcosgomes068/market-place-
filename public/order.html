@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido - Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">Marketplace</a>
+                </div>
+                <nav>
+                    <ul id="menuItems">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Produtos</a></li>
+                        <li><a href="#" id="categories-link">Categorias</a></li>
+                        <li><a href="/about.html">Sobre</a></li>
+                        <li><a href="/contact.html">Contato</a></li>
+                        <!-- Auth links serão adicionados dinamicamente pelo JS -->
+                        <li class="auth-links"></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon">
+                    <a href="#" id="cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/account.html">Minha Conta</a></li>
+                <li><span>Pedido</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Order Section -->
+    <section class="order section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Detalhes do Pedido</h2>
+                <p>Obrigado pela sua compra!</p>
+            </div>
+            
+            <div id="order-details" class="order-details">
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <p>Carregando detalhes do pedido...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Marketplace</h4>
+                    <p>Sua plataforma de compra e venda online!</p>
+                </div>
+                <div class="col">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Produtos</a></li>
+                        <li><a href="/about.html">Sobre</a></li>
+                        <li><a href="/contact.html">Contato</a></li>
+                        <li><a href="/terms.html">Termos de Uso</a></li>
+                        <li><a href="/privacy.html">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="/products.html?category=Electronics">Eletrônicos</a></li>
+                        <li><a href="/products.html?category=Fashion">Moda</a></li>
+                        <li><a href="/products.html?category=Home">Casa e Decoração</a></li>
+                        <li><a href="/products.html?category=Sports">Esportes</a></li>
+                        <li><a href="/products.html?category=Books">Livros</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Marketplace. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div id="login-modal" class="modal">
+        <!-- Modal content will be loaded dynamically -->
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/cart.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get order ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('id');
+            
+            if (!orderId) {
+                window.location.href = '/account.html';
+                return;
+            }
+            
+            // Function to format date
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return new Date(dateString).toLocaleDateString('pt-BR', options);
+            }
+            
+            // Function to get order status text and class
+            function getOrderStatusInfo(isPaid, isDelivered) {
+                let statusText = 'Pendente';
+                let statusClass = 'pending';
+                
+                if (isPaid && isDelivered) {
+                    statusText = 'Entregue';
+                    statusClass = 'delivered';
+                } else if (isPaid) {
+                    statusText = 'Pago, em processamento';
+                    statusClass = 'processing';
+                }
+                
+                return { statusText, statusClass };
+            }
+            
+            // Load order details
+            async function loadOrderDetails() {
+                try {
+                    // Check if user is logged in
+                    if (!isLoggedIn()) {
+                        window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.href);
+                        return;
+                    }
+                    
+                    const response = await apiRequest(`/orders/${orderId}`, 'GET');
+                    
+                    if (response.success) {
+                        const order = response.data;
+                        const orderDetails = document.getElementById('order-details');
+                        
+                        if (orderDetails) {
+                            const { statusText, statusClass } = getOrderStatusInfo(order.isPaid, order.isDelivered);
+                            
+                            let itemsHtml = '';
+                            order.items.forEach(item => {
+                                itemsHtml += `
+                                    <div class="order-item">
+                                        <div class="item-details">
+                                            <h4>${item.name || 'Produto'}</h4>
+                                            <p>Quantidade: ${item.quantity}</p>
+                                            <p>Preço: R$ ${item.price.toFixed(2)}</p>
+                                        </div>
+                                        <div class="item-total">
+                                            <p>R$ ${(item.price * item.quantity).toFixed(2)}</p>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            
+                            orderDetails.innerHTML = `
+                                <div class="order-header">
+                                    <div class="order-info">
+                                        <h3>Pedido #${order.id}</h3>
+                                        <p>Data: ${formatDate(order.createdAt)}</p>
+                                    </div>
+                                    <div class="order-status ${statusClass}">
+                                        <span>${statusText}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-content">
+                                    <div class="order-shipping">
+                                        <h3>Endereço de Entrega</h3>
+                                        <p>${order.shippingAddress.address}</p>
+                                        <p>${order.shippingAddress.city}, ${order.shippingAddress.state}</p>
+                                        <p>CEP: ${order.shippingAddress.postalCode}</p>
+                                    </div>
+                                    
+                                    <div class="order-payment">
+                                        <h3>Pagamento</h3>
+                                        <p>Método: ${order.paymentMethod}</p>
+                                        <p>Status: ${order.isPaid ? `Pago em ${formatDate(order.paidAt)}` : 'Pendente'}</p>
+                                    </div>
+                                    
+                                    <div class="order-items-list">
+                                        <h3>Itens do Pedido</h3>
+                                        ${itemsHtml}
+                                    </div>
+                                    
+                                    <div class="order-summary">
+                                        <div class="summary-row">
+                                            <span>Subtotal:</span>
+                                            <span>R$ ${(order.totalPrice - order.taxPrice - order.shippingPrice).toFixed(2)}</span>
+                                        </div>
+                                        <div class="summary-row">
+                                            <span>Taxa:</span>
+                                            <span>R$ ${order.taxPrice.toFixed(2)}</span>
+                                        </div>
+                                        <div class="summary-row">
+                                            <span>Frete:</span>
+                                            <span>R$ ${order.shippingPrice.toFixed(2)}</span>
+                                        </div>
+                                        <div class="summary-row total">
+                                            <span>Total:</span>
+                                            <span>R$ ${order.totalPrice.toFixed(2)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } else {
+                        throw new Error(response.message || 'Erro ao carregar pedido');
+                    }
+                } catch (error) {
+                    console.error('Error loading order:', error);
+                    const orderDetails = document.getElementById('order-details');
+                    
+                    if (orderDetails) {
+                        orderDetails.innerHTML = `
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <p>Não foi possível carregar os detalhes do pedido. Por favor, tente novamente mais tarde.</p>
+                                <a href="/account.html" class="btn btn-primary">Voltar para Minha Conta</a>
+                            </div>
+                        `;
+                    }
+                }
+            }
+            
+            // Load order details
+            loadOrderDetails();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">Marketplace</a>
+                </div>
+                <nav>
+                    <ul id="menuItems">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Produtos</a></li>
+                        <li><a href="#" id="categories-link">Categorias</a></li>
+                        <li><a href="/about.html">Sobre</a></li>
+                        <li><a href="/contact.html">Contato</a></li>
+                        <!-- Auth links serão adicionados dinamicamente pelo JS -->
+                        <li class="auth-links"></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon">
+                    <a href="#" id="cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><span>Carrinho</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Cart Section -->
+    <section class="cart section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Carrinho</h2>
+                <p>Revise seus itens e prossiga para o checkout</p>
+            </div>
+            
+            <div class="cart-content">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="cart-items-wrapper">
+                            <div class="cart-header">
+                                <div class="cart-item-col">Produto</div>
+                                <div class="cart-item-col">Preço</div>
+                                <div class="cart-item-col">Quantidade</div>
+                                <div class="cart-item-col">Total</div>
+                                <div class="cart-item-col">Ação</div>
+                            </div>
+                            <div id="cart-items" class="cart-items">
+                                <!-- Cart items will be added dynamically via JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="cart-summary" id="cart-summary">
+                            <!-- Cart summary will be added dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Produtos Recomendados</h2>
+                <p>Você também pode gostar destes produtos</p>
+            </div>
+            <div class="products-grid" id="featured-products-grid">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Marketplace</h4>
+                    <p>Sua plataforma de compra e venda online!</p>
+                </div>
+                <div class="col">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Produtos</a></li>
+                        <li><a href="/about.html">Sobre</a></li>
+                        <li><a href="/contact.html">Contato</a></li>
+                        <li><a href="/terms.html">Termos de Uso</a></li>
+                        <li><a href="/privacy.html">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="/products.html?category=Electronics">Eletrônicos</a></li>
+                        <li><a href="/products.html?category=Fashion">Moda</a></li>
+                        <li><a href="/products.html?category=Home">Casa e Decoração</a></li>
+                        <li><a href="/products.html?category=Sports">Esportes</a></li>
+                        <li><a href="/products.html?category=Books">Livros</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Marketplace. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div id="login-modal" class="modal">
+        <!-- Modal content will be loaded dynamically -->
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/cart.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load featured products
+            async function loadFeaturedProducts() {
+                try {
+                    const response = await apiRequest('/products/featured?limit=4', 'GET');
+                    
+                    if (response.success) {
+                        const productsGrid = document.getElementById('featured-products-grid');
+                        
+                        if (productsGrid) {
+                            let html = '';
+                            
+                            response.data.forEach(product => {
+                                html += `
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="${product.images && product.images.length ? product.images[0] : '/images/placeholder.jpg'}" alt="${product.name}">
+                                            <div class="product-tags">
+                                                ${product.featured ? '<span class="tag featured">Destaque</span>' : ''}
+                                                ${product.stock <= 0 ? '<span class="tag out-of-stock">Esgotado</span>' : ''}
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3><a href="/product.html?id=${product.id}">${product.name}</a></h3>
+                                            <p class="price">R$ ${product.price.toFixed(2)}</p>
+                                            <div class="product-actions">
+                                                <button class="btn btn-primary btn-sm" onclick="addToCart('${product.id}')" ${product.stock <= 0 ? 'disabled' : ''}>Adicionar ao Carrinho</button>
+                                                <button class="btn btn-outline btn-sm" onclick="addToWishlist('${product.id}')"><i class="far fa-heart"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            
+                            productsGrid.innerHTML = html;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading featured products:', error);
+                }
+            }
+            
+            // Initialize
+            displayCartItems(); // From cart.js
+            loadFeaturedProducts();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">Marketplace</a>
+                </div>
+                <nav>
+                    <ul id="menuItems">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Produtos</a></li>
+                        <li><a href="#" id="categories-link">Categorias</a></li>
+                        <li><a href="/about.html">Sobre</a></li>
+                        <li><a href="/contact.html">Contato</a></li>
+                        <!-- Auth links serão adicionados dinamicamente pelo JS -->
+                        <li class="auth-links"></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon">
+                    <a href="#" id="cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/cart.html">Carrinho</a></li>
+                <li><span>Checkout</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Checkout Section -->
+    <section class="checkout section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Checkout</h2>
+                <p>Complete seu pedido preenchendo o formulário abaixo</p>
+            </div>
+            
+            <div class="checkout-content">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="checkout-form-wrapper">
+                            <form id="checkout-form" class="checkout-form">
+                                <div class="form-section">
+                                    <h3>Endereço de Entrega</h3>
+                                    <div class="form-group">
+                                        <label for="address">Endereço</label>
+                                        <input type="text" id="address" name="address" required>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="city">Cidade</label>
+                                            <input type="text" id="city" name="city" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="state">Estado</label>
+                                            <input type="text" id="state" name="state" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postal-code">CEP</label>
+                                        <input type="text" id="postal-code" name="postal-code" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-section">
+                                    <h3>Método de Pagamento</h3>
+                                    <div class="form-group payment-methods">
+                                        <div class="payment-method">
+                                            <input type="radio" id="credit-card" name="payment-method" value="credit-card" checked>
+                                            <label for="credit-card">Cartão de Crédito</label>
+                                        </div>
+                                        <div class="payment-method">
+                                            <input type="radio" id="pix" name="payment-method" value="pix">
+                                            <label for="pix">PIX</label>
+                                        </div>
+                                        <div class="payment-method">
+                                            <input type="radio" id="bank-transfer" name="payment-method" value="bank-transfer">
+                                            <label for="bank-transfer">Transferência Bancária</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-block">Finalizar Pedido</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="order-summary">
+                            <h3>Resumo do Pedido</h3>
+                            <div class="order-items" id="order-items">
+                                <!-- Itens do pedido serão adicionados dinamicamente pelo JS -->
+                            </div>
+                            <div class="order-totals" id="order-totals">
+                                <!-- Totais serão adicionados dinamicamente pelo JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Marketplace</h4>
+                    <p>Sua plataforma de compra e venda online!</p>
+                </div>
+                <div class="col">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Produtos</a></li>
+                        <li><a href="/about.html">Sobre</a></li>
+                        <li><a href="/contact.html">Contato</a></li>
+                        <li><a href="/terms.html">Termos de Uso</a></li>
+                        <li><a href="/privacy.html">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="/products.html?category=Electronics">Eletrônicos</a></li>
+                        <li><a href="/products.html?category=Fashion">Moda</a></li>
+                        <li><a href="/products.html?category=Home">Casa e Decoração</a></li>
+                        <li><a href="/products.html?category=Sports">Esportes</a></li>
+                        <li><a href="/products.html?category=Books">Livros</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Marketplace. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div id="login-modal" class="modal">
+        <!-- Modal content will be loaded dynamically -->
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/cart.js"></script>
+    
+    <!-- Checkout specific script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize page elements
+            function initCheckoutPage() {
+                // Check if user is logged in
+                if (!isLoggedIn()) {
+                    window.location.href = '/login.html?redirect=/checkout.html';
+                    return;
+                }
+                
+                // Display order items in summary
+                const orderItems = document.getElementById('order-items');
+                const orderTotals = document.getElementById('order-totals');
+                
+                if (orderItems && orderTotals) {
+                    const cartItems = getCartItems();
+                    
+                    if (cartItems.length === 0) {
+                        window.location.href = '/cart.html';
+                        return;
+                    }
+                    
+                    // Display items
+                    let itemsHTML = '';
+                    cartItems.forEach(item => {
+                        itemsHTML += `
+                            <div class="order-item">
+                                <div class="item-name">
+                                    <span>${item.name}</span>
+                                    <span>x${item.quantity}</span>
+                                </div>
+                                <div class="item-price">R$ ${(item.price * item.quantity).toFixed(2)}</div>
+                            </div>
+                        `;
+                    });
+                    
+                    orderItems.innerHTML = itemsHTML;
+                    
+                    // Display totals
+                    const totals = calculateCartTotals();
+                    orderTotals.innerHTML = `
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span>R$ ${totals.subtotal}</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Imposto:</span>
+                            <span>R$ ${totals.tax}</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Entrega:</span>
+                            <span>R$ ${totals.shipping}</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total:</span>
+                            <span>R$ ${totals.total}</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Initialize
+            initCheckoutPage();
+        });
+    </script>
+</body>
+</html>
